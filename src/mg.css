@@ -1,0 +1,47 @@
+/* ======== 3D MINIHRY ======== */
+.mg{display:grid;grid-template-columns:330px 1fr;gap:26px;align-items:stretch}
+.mg-list{display:flex;flex-direction:column;gap:14px}
+.mg-item{position:relative;display:flex;align-items:center;gap:14px;text-align:left;padding:20px 20px;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line);background:rgba(26,18,10,.78);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s,box-shadow .3s;
+  --c:var(--g)}
+.mg-item:hover{transform:translateX(6px);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.mg-item.on{transform:translateX(14px);border-color:var(--c);background:linear-gradient(110deg,color-mix(in srgb,var(--c) 22%,rgba(26,18,10,.9)),rgba(26,18,10,.9));
+  box-shadow:0 14px 40px -14px var(--c)}
+.mg-num{font-weight:900;font-size:1.1rem;color:rgba(255,255,255,.22);width:26px;font-variant-numeric:tabular-nums}
+.mg-item.on .mg-num{color:var(--c)}
+.mg-ico{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;flex:none;color:var(--c);
+  background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);transition:.3s}
+.mg-item.on .mg-ico{transform:rotate(-8deg) scale(1.08)}
+.mg-txt b{display:block;font-size:1.25rem;font-weight:800}
+.mg-txt small{color:var(--mut);font-size:.8rem;letter-spacing:.5px}
+.mg-prog{position:absolute;left:0;bottom:0;height:3px;background:var(--c);box-shadow:0 0 12px var(--c);animation:mgprog 7.5s linear both}
+@keyframes mgprog{from{width:0}to{width:100%}}
+
+.mg-stage{position:relative;min-height:600px;border-radius:30px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(70% 70% at 50% 45%,color-mix(in srgb,var(--c) 22%,#150f08),#0c0805 75%);transition:background .6s;
+  box-shadow:0 40px 90px -40px color-mix(in srgb,var(--c) 70%,transparent)}
+.mg-stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at 50% 55%,#000,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 55%,#000,transparent 70%)}
+.mg-glow{position:absolute;left:50%;bottom:-12%;width:80%;height:46%;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 55%,transparent),transparent);filter:blur(30px);animation:float 6s ease-in-out infinite}
+.mg-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.mg-hint{position:absolute;top:18px;right:20px;display:flex;gap:8px;align-items:center;font-size:.78rem;color:var(--mut);padding:6px 12px;border-radius:99px;
+  background:rgba(0,0,0,.4);border:1px solid var(--line);pointer-events:none}
+.mg-info{position:absolute;left:0;right:0;bottom:0;padding:90px 34px 30px;pointer-events:none;
+  background:linear-gradient(0deg,rgba(10,7,4,.96) 0%,rgba(10,7,4,.8) 55%,transparent)}
+.mg-info>*{pointer-events:auto}
+.mg-info .badge{animation:ldtip .5s}
+.mg-name{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;line-height:1.05;margin:12px 0 8px;display:block}
+.mg-name .ltr{animation-delay:calc(var(--i)*55ms)}
+.mg-info p{max-width:560px;font-size:1.05rem;animation:ldtip .6s .15s both}
+.mg-info .tags{margin:14px 0 20px;animation:ldtip .6s .25s both}
+.mg-info .btn{animation:ldtip .6s .35s both}
+
+@media (max-width:980px){
+  .mg{grid-template-columns:1fr}
+  .mg-list{flex-direction:row;overflow-x:auto;padding-bottom:6px;gap:10px}
+  .mg-item{flex:none;padding:14px 16px}.mg-item.on,.mg-item:hover{transform:none}
+  .mg-num,.mg-txt small{display:none}
+  .mg-stage{min-height:560px}
+}
