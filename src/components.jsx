@@ -14,7 +14,6 @@ export function Reveal({ children, delay = 0, as: Tag = 'div', className = '', .
   )
 }
 
-/* ---------- animated background: floating voxel cubes ---------- */
 export function Background() {
   const ref = useRef(null)
   useEffect(() => {
@@ -76,7 +75,6 @@ export function Background() {
   return <canvas ref={ref} className="bg-canvas" aria-hidden="true" />
 }
 
-/* ---------- navbar ---------- */
 const links = [['minihry', 'Minihry'], ['start', 'Jak začít'], ['novinky', 'Novinky'], ['faq', 'FAQ'], ['komunita', 'Komunita'], ['admin', 'AdminTeam']]
 
 const navIcons = { minihry: 'gamepad', start: 'play', novinky: 'news', faq: 'chat', komunita: 'users', admin: 'shield' }
@@ -152,7 +150,6 @@ export function Nav() {
   )
 }
 
-/* ---------- copy IP ---------- */
 export function useCopy() {
   const [ok, setOk] = useState(false)
   const copy = async () => {
@@ -172,8 +169,6 @@ export function useCopy() {
   return [ok, copy]
 }
 
-
-/* ---------- mega nadpis ---------- */
 function MegaTitle() {
   const ref = useRef(null)
   const onMove = (e) => {
@@ -215,7 +210,6 @@ function MegaTitle() {
   )
 }
 
-/* ---------- karta servera (ako záznam v Minecraft multiplayeri) ---------- */
 function StatusCard() {
   const [ok, copy] = useCopy()
   const ref = useRef(null)
@@ -275,7 +269,6 @@ function StatusCard() {
   )
 }
 
-/* ---------- hero ---------- */
 export function Hero() {
   const [ok, copy] = useCopy()
   const go = (id) => (e) => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
@@ -319,7 +312,6 @@ export function Marquee() {
   )
 }
 
-/* nadpis v štýle Minecraft loga: *zlaté* slová, písmená padajú pri odkrytí */
 export function McTitle({ text, as: Tag = 'h2', className = '' }) {
   const [ref, seen] = useInView({ threshold: 0.35 })
   const chars = []
@@ -348,7 +340,6 @@ export function SectionHead({ k, t, d }) {
   )
 }
 
-/* card with cursor spotlight */
 export function Spot({ children, className = '', color, ...p }) {
   const onMove = (e) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -362,7 +353,6 @@ export function Spot({ children, className = '', color, ...p }) {
   )
 }
 
-/* ---------- how to start ---------- */
 export function Steps() {
   const [ok, copy] = useCopy()
   const info = [
@@ -404,7 +394,6 @@ export function Steps() {
   )
 }
 
-/* ---------- servers ---------- */
 export function Servers() {
   const [sel, setSel] = useState('all')
   const list = servers.filter((s) => sel === 'all' || (sel === 'live' ? s.status === 'live' : s.status === 'soon'))
@@ -441,7 +430,6 @@ export function Servers() {
   )
 }
 
-/* ---------- manifest: GameTeam je zpět ---------- */
 export function Manifesto() {
   return (
     <section id="zpet" className="section manifesto">
@@ -496,7 +484,6 @@ export function Manifesto() {
   )
 }
 
-/* ---------- roadmapa ---------- */
 const road = [
   { s: 'done', t: 'Návrat oznámen', d: 'GameTeam je zpět. Tohle už máš za sebou.' },
   { s: 'now', t: 'Whitelist a Discord', d: 'Právě to dolaďujeme. Tady se dozvíš všechno první.' },
@@ -522,7 +509,6 @@ export function Roadmap() {
   )
 }
 
-/* ---------- news ---------- */
 export function News() {
   return (
     <section id="novinky" className="section">
@@ -544,7 +530,6 @@ export function News() {
   )
 }
 
-/* ---------- faq ---------- */
 export function FAQ() {
   const [open, setOpen] = useState(0)
   return (
@@ -564,7 +549,6 @@ export function FAQ() {
   )
 }
 
-/* ---------- discord cta ---------- */
 export function Community() {
   const [ok, copy] = useCopy()
   return (

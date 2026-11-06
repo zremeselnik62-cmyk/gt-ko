@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-/* Prihlásenie: PHP API (api/index.php) + session cookie + CSRF token */
 const API = 'api/index.php'
 const AuthCtx = createContext(null)
 export const useAuth = () => useContext(AuthCtx)
@@ -12,7 +11,7 @@ export const ROLE_COLOR = { player: '#a89a85', helper: '#53e82f', moderator: '#6
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [ready, setReady] = useState(false)
-  const [modal, setModal] = useState(null) // null | 'login' | 'register'
+  const [modal, setModal] = useState(null)
   const csrf = useRef('')
 
   const call = useCallback(async (r, { method = 'GET', data, query } = {}) => {

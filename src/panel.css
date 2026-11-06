@@ -1,4 +1,3 @@
-/* ======== ÚČET: menu, modal, profil ======== */
 .av{display:inline-grid;place-items:center;flex:none;border-radius:50%;font-weight:900;color:#2a1a02;background:linear-gradient(160deg,#ffe27a,#f2b92e 55%,#c98c14);
   box-shadow:0 0 0 2px #1a120a,0 0 0 3.5px rgba(232,176,46,.7);width:38px;height:38px}
 .av.sm{width:30px;height:30px;font-size:.85rem;margin-right:10px;vertical-align:middle;box-shadow:0 0 0 1.5px rgba(232,176,46,.55)}
@@ -30,7 +29,6 @@
 .nav-mob .um-pop{position:static;width:100%;margin-top:8px;display:none;opacity:1;transform:none}
 .nav-mob .um-pop.show{display:block;pointer-events:auto}
 
-/* modal */
 .md-back{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:20px;background:rgba(6,4,2,.78);backdrop-filter:blur(8px);animation:mdfade .25s}
 @keyframes mdfade{from{opacity:0}}
 .md{position:relative;width:min(420px,100%);max-height:92vh;overflow:auto;padding:34px 30px 28px;border-radius:26px;text-align:left;
@@ -57,7 +55,6 @@
 .md-foot button{color:var(--g);font-weight:800}
 .md .btn:disabled,.ap-ban .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
 
-/* profil / heslo */
 .ac-page{padding:150px 0 110px;min-height:100vh}
 .ac-wait{text-align:center;color:var(--mut);padding:40px}
 .ac-gate{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:50px 24px;border-radius:24px;border:1px dashed rgba(232,176,46,.4);background:rgba(26,18,10,.6)}
@@ -84,7 +81,6 @@
 .pw-meter[data-s="3"] i:nth-child(-n+3){background:#c8d93a}
 .pw-meter[data-s="4"] i{background:#34d27a}
 
-/* ======== ADMIN PANEL ======== */
 .ap-page{padding:150px 0 110px;min-height:100vh}
 .ap-tabs{display:flex;flex-wrap:wrap;gap:8px;padding:6px;margin-bottom:26px;border-radius:18px;background:rgba(0,0,0,.35);border:1px solid var(--line);width:max-content;max-width:100%}
 .ap-tabs button{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:13px;font-weight:800;font-size:.92rem;color:var(--mut);transition:.25s}
@@ -170,7 +166,6 @@
 @media (max-width:1100px){.ap-stats{grid-template-columns:1fr 1fr}.ap-two,.ap-ban{grid-template-columns:1fr}.ap-ban-sum{position:static}}
 @media (max-width:640px){.ap-stats{grid-template-columns:1fr}.pf-grid{grid-template-columns:1fr}.pf-top{flex-direction:column;align-items:flex-start}.ap-tabs{width:100%}.ap-tabs button{flex:1;justify-content:center;padding:10px}}
 
-/* navbar so účtom: viac miesta */
 .nav>.wrap{width:min(1340px,95%)}
 .nav-act{gap:8px}
 @media (max-width:1500px){.nav-act .nip-t{display:none}.nav-act .nav-ip{padding:10px 12px}}
@@ -182,7 +177,6 @@
 .nav-cta{padding:10px 16px}
 .um-name{max-width:96px}
 
-/* ======== PROFIL + SKIN ======== */
 .av.skinned{background-repeat:no-repeat,no-repeat;background-color:#2a1c0c;image-rendering:pixelated;border-radius:10px;box-shadow:0 0 0 2px #1a120a,0 0 0 3.5px rgba(232,176,46,.7)}
 .um-btn .av.skinned{border-radius:50%}
 .sk-grid{display:grid;grid-template-columns:minmax(320px,.9fr) 1.1fr;gap:26px;align-items:start}
@@ -215,7 +209,6 @@
 .sk-tip{margin-top:16px;font-size:.84rem}
 @media (max-width:1000px){.sk-grid{grid-template-columns:1fr}.sk-left{position:static}.sk-stage{height:520px}}
 
-/* IP adresa v navbare má byť vidieť */
 .nav .nav-act .nip-t{display:inline!important;font-size:.82rem}
 .nav .links a .nl-ico{display:none!important}
 .nav .links a:not(.btn){padding:9px 12px}

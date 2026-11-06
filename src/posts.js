@@ -1,5 +1,3 @@
-/* články (novinky) – sem pridávaj nové; najnovšie hore.
-   Typy blokov: p (odstavec), h (podnadpis), quote (citát), list (zoznam) */
 export const tagMeta = {
   'Oznámení': { c: '#ffd54a', icon: 'zap' },
   'Minihry': { c: '#4fd1a5', icon: 'gamepad' },

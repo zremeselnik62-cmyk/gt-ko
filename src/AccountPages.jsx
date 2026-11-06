@@ -31,7 +31,7 @@ const MODES = [['walk', 'Chůze'], ['idle', 'Stát'], ['wave', 'Mávání']]
 export function ProfilePage() {
   const { user, staff, logout, call, refresh } = useAuth()
   const [mode, setMode] = useState('walk')
-  const [prev, setPrev] = useState(null) // { url, name }
+  const [prev, setPrev] = useState(null)
   const [slim, setSlim] = useState(false)
   const [nick, setNick] = useState('')
   const [drag, setDrag] = useState(false)

@@ -7,7 +7,6 @@ $r = (string)($_GET['r'] ?? '');
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $pdo = db();
 
-/* všetky zápisy musia byť POST + CSRF */
 $writes = ['register', 'login', 'logout', 'change_password', 'skin_upload', 'skin_reset', 'profile_update', 'player_add', 'ban_create', 'ban_remove', 'set_role', 'purge_demo'];
 if (in_array($r, $writes, true)) {
     if ($method !== 'POST') fail('Povolen je jen POST.', 405);
@@ -25,7 +24,6 @@ const BAN_STATUS = "CASE WHEN b.active = 0 THEN 'removed' WHEN b.expires_at IS N
 
 switch ($r) {
 
-    /* ============ účet ============ */
     case 'me':
         out(['user' => public_user(current_user()), 'csrf' => $_SESSION['csrf']]);
 
@@ -88,7 +86,6 @@ switch ($r) {
         out(['ok' => true]);
     }
 
-    /* ============ admin: štatistiky ============ */
     case 'admin_stats': {
         require_role('helper');
         $now = now();
@@ -107,7 +104,6 @@ switch ($r) {
         out($data);
     }
 
-    /* ============ admin: hráči ============ */
     case 'players': {
         require_role('helper');
         $q = trim((string)($_GET['q'] ?? '')); $f = (string)($_GET['filter'] ?? 'all'); $sort = (string)($_GET['sort'] ?? 'last_seen');
@@ -148,7 +144,6 @@ switch ($r) {
         out(['id' => (int)$pdo->lastInsertId()], 201);
     }
 
-    /* ============ admin: bany ============ */
     case 'bans': {
         require_role('helper');
         $status = (string)($_GET['status'] ?? 'active'); $q = trim((string)($_GET['q'] ?? ''));
@@ -203,7 +198,6 @@ switch ($r) {
         out(['ok' => true]);
     }
 
-    /* ============ admin: tým a role ============ */
     case 'users': {
         require_role('admin');
         out(['items' => $pdo->query('SELECT id, username, role, mc_nick, created_at, last_login FROM users ORDER BY id')->fetchAll()]);
@@ -231,8 +225,7 @@ switch ($r) {
         out(['removed' => $n]);
     }
 
-    /* ============ profil a skin ============ */
-    case 'skin': {   /* GET – obrázok skinu hráča (verejný, je to len vzhľad postavy) */
+    case 'skin': {
         $id = (int)($_GET['id'] ?? 0);
         $f = $id > 0 ? skin_path($id) : '';
         if ($f === '' || !is_file($f)) { http_response_code(404); header('Content-Type: text/plain'); exit('žádný skin'); }

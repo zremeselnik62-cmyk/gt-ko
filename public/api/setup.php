@@ -4,7 +4,6 @@ require __DIR__ . '/bootstrap.php';
 header('Content-Type: text/html; charset=utf-8');
 start_session();
 
-/* První spuštění: vytvoří prvního majitele. Jen z localhostu a jen dokud neexistuje žádný uživatel. */
 $ip = (string)($_SERVER['REMOTE_ADDR'] ?? '');
 $local = in_array($ip, ['127.0.0.1', '::1'], true);
 $pdo = db();

@@ -3,14 +3,12 @@ import * as THREE from 'three'
 import { buildPlayer, prepTexture } from './skinModel.js'
 import { paintSkin, humans } from './Scene3D.jsx'
 
-/* 3D prehliadač skinu: točí sa, dá sa ťahať myšou, má animácie (chôdza / státie / mávanie) */
 export default function SkinViewer({ url, slim = false, mode = 'walk', className = '' }) {
   const canvasRef = useRef(null)
   const st = useRef({ mode, slim, url })
   const api = useRef(null)
   st.current.mode = mode
 
-  /* scéna – raz */
   useEffect(() => {
     const canvas = canvasRef.current
     const wrap = canvas.parentElement
@@ -23,7 +21,6 @@ export default function SkinViewer({ url, slim = false, mode = 'walk', className
     const sun = new THREE.DirectionalLight(0xffffff, 2); sun.position.set(-30, 50, 60); scene.add(sun)
     const rim = new THREE.PointLight(0xe8b02e, 1800, 200); rim.position.set(40, 10, -40); scene.add(rim)
 
-    // podstavec
     const disc = new THREE.Mesh(new THREE.CylinderGeometry(15, 16, 1.4, 48), new THREE.MeshLambertMaterial({ color: 0x2a1c0c }))
     disc.position.y = -0.7; scene.add(disc)
     const ring = new THREE.Mesh(new THREE.TorusGeometry(15.5, 0.35, 8, 64), new THREE.MeshBasicMaterial({ color: 0xe8b02e }))
@@ -87,7 +84,6 @@ export default function SkinViewer({ url, slim = false, mode = 'walk', className
     }
   }, [])
 
-  /* skin / model sa zmenil */
   useEffect(() => {
     const a = api.current
     if (!a) return

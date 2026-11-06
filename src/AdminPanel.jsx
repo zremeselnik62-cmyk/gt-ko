@@ -34,7 +34,6 @@ function Pager({ page, total, per, set }) {
   )
 }
 
-/* ---------- Prehľad ---------- */
 function Overview({ go }) {
   const { call, can } = useAuth()
   const [d, setD] = useState(null)
@@ -85,7 +84,6 @@ function Overview({ go }) {
   )
 }
 
-/* ---------- Detail hráča ---------- */
 function PlayerModal({ id, onClose, onBan, onChanged }) {
   const { call, can } = useAuth()
   const [d, setD] = useState(null)
@@ -130,7 +128,6 @@ function PlayerModal({ id, onClose, onBan, onChanged }) {
   )
 }
 
-/* ---------- Hráči ---------- */
 function Players({ onBan }) {
   const { call, can } = useAuth()
   const [q, setQ] = useState(''); const [filter, setFilter] = useState('all'); const [sort, setSort] = useState('last_seen'); const [page, setPage] = useState(1)
@@ -189,7 +186,6 @@ function Players({ onBan }) {
   )
 }
 
-/* ---------- Ban list ---------- */
 function Bans() {
   const { call, can } = useAuth()
   const [status, setStatus] = useState('active'); const [q, setQ] = useState(''); const [page, setPage] = useState(1)
@@ -234,7 +230,6 @@ function Bans() {
   )
 }
 
-/* ---------- Ban menu ---------- */
 function BanMenu({ prefill, onDone }) {
   const { call, can } = useAuth()
   const [nick, setNick] = useState(prefill || '')
@@ -284,7 +279,6 @@ function BanMenu({ prefill, onDone }) {
   )
 }
 
-/* ---------- Tím ---------- */
 function Team() {
   const { call, user, can } = useAuth()
   const [items, setItems] = useState(null); const [err, setErr] = useState('')
@@ -322,7 +316,6 @@ function Team() {
   )
 }
 
-/* ---------- panel ---------- */
 export default function AdminPanel() {
   const { user, ready, staff, can, openLogin } = useAuth()
   const [tab, setTab] = useState('overview')

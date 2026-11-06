@@ -4,7 +4,6 @@ import { useAuth, ROLE_LABEL, ROLE_COLOR, skinUrl } from './auth.jsx'
 import { navigate, useRoute } from './route.js'
 import { DISCORD } from './data.js'
 
-/* ---------- avatar (iniciála v zlatom kruhu) ---------- */
 export function Avatar({ name, size = 38, skin = null }) {
   if (skin) {
     const k = size / 8
@@ -15,7 +14,6 @@ export function Avatar({ name, size = 38, skin = null }) {
   return <span className="av" style={{ width: size, height: size, fontSize: size * 0.42 }}>{(name || '?').slice(0, 1).toUpperCase()}</span>
 }
 
-/* ---------- menu účtu v navbare ---------- */
 export function UserMenu({ onNavigate }) {
   const { user, ready, openLogin, logout, staff } = useAuth()
   const [open, setOpen] = useState(false)
@@ -53,7 +51,6 @@ export function UserMenu({ onNavigate }) {
   )
 }
 
-/* ---------- prihlasovacie okno ---------- */
 export function AuthModal() {
   const { modal, setModal, login, register } = useAuth()
   const [mode, setMode] = useState('login')

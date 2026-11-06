@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-/* ============ textúry (pixel-art, nearest filter) ============ */
 const hash = (x, y, s) => { const n = Math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return n - Math.floor(n) }
 const hex2rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
 
@@ -25,7 +24,6 @@ function tex(w, h, base, seed, draw, amt = 14) {
 const px = (ctx, x, y, col, w = 1, h = 1) => { ctx.fillStyle = col; ctx.fillRect(x, y, w, h) }
 const mat = (map) => new THREE.MeshLambertMaterial({ map })
 
-// poradie plôch BoxGeometry: +x, -x, +y, -y, +z (predok), -z (zadok)
 function boxMats(w, h, d, base, seed, faces = {}) {
   const dim = { px: [d, h], nx: [d, h], py: [w, d], ny: [w, d], pz: [w, h], nz: [w, h] }
   return ['px', 'nx', 'py', 'ny', 'pz', 'nz'].map((k, i) => {
@@ -38,10 +36,6 @@ function box(w, h, d, mats, S, y) {
   m.position.y = y * S
   return m
 }
-
-/* ============ postavy 1:1 ako v Minecrafte ============ */
-/* Presný model hráča (hlava 8x8x8, telo 8x12x4, ruky 4x12x4, nohy 4x12x4)
-   a skin v 64x64 rozložení ako v hre. Skin je namaľovaný kódom. */
 
 const R = (u, v, w, h, d) => ({
   top: [u + d, v, w, d], bottom: [u + d + w, v, w, d],
@@ -72,7 +66,6 @@ function paintSkin(o) {
   const P = (r, dx, dy, w, h, col) => { ctx.fillStyle = col; ctx.fillRect(r[0] + dx, r[1] + dy, w, h) }
   const all = (p, col, amt) => Object.values(p).forEach((r) => fill(r, col, amt))
 
-  /* hlava */
   const H = parts.head
   all(H, o.skin, 7)
   if (o.helmet) {
@@ -99,14 +92,12 @@ function paintSkin(o) {
     if (o.beard) { P(H.front, 1, 6, 6, 2, o.beard); P(H.front, 3, 6, 2, 1, '#6a3e2a') }
   }
 
-  /* telo */
   const B = parts.body
   all(B, o.shirt, 7)
   if (o.armor) { P(B.front, 3, 0, 2, 12, o.armorDark); P(B.front, 0, 0, 8, 1, '#d4dadf') }
   if (o.belt) { P(B.front, 0, 10, 8, 2, o.belt); P(B.back, 0, 10, 8, 2, o.belt); P(B.right, 0, 10, 4, 2, o.belt); P(B.left, 0, 10, 4, 2, o.belt); P(B.front, 3, 10, 2, 2, '#e8b02e') }
   if (o.strap) for (let i = 0; i < 9; i++) P(B.front, Math.floor(i * 0.85), i, 1, 1, o.strap)
 
-  /* ruky */
   ;[parts.rarm, parts.larm].forEach((A) => {
     all(A, o.skin, 7)
     const sl = o.armor ? o.shirt : (o.sleeve || o.shirt)
@@ -116,7 +107,6 @@ function paintSkin(o) {
     if (o.armor) { ;['right', 'front', 'left', 'back'].forEach((f) => P(A[f], 0, 9, A[f][2], 3, o.armorDark)); fill(A.bottom, o.armorDark, 5) }
   })
 
-  /* nohy */
   ;[parts.rleg, parts.lleg].forEach((L) => {
     all(L, o.pants, 7)
     ;['right', 'front', 'left', 'back'].forEach((f) => P(L[f], 0, 9, L[f][2], 3, o.shoes))
@@ -129,11 +119,10 @@ function paintSkin(o) {
   return { tex: t, parts }
 }
 
-/* kocka s UV mapovaním ako v Minecrafte */
 function mcBox(w, h, d, rects, S, material, tw = 64, th = 64) {
   const g = new THREE.BoxGeometry(w * S, h * S, d * S)
   const uv = g.attributes.uv
-  const map = [rects.left, rects.right, rects.top, rects.bottom, rects.front, rects.back] // px nx py ny pz nz
+  const map = [rects.left, rects.right, rects.top, rects.bottom, rects.front, rects.back]
   map.forEach((r, f) => {
     const [x, y, rw, rh] = r
     const u0 = x / tw, u1 = (x + rw) / tw, v0 = 1 - y / th, v1 = 1 - (y + rh) / th
@@ -171,7 +160,6 @@ function buildHuman(o, S) {
   return root
 }
 
-/* ---------- predmety ako v hre: 16x16 sprite vytlačený do 3D ---------- */
 function makeSprite(ops, S, thick = 1) {
   const grid = {}
   const set = (x, y, col) => { if (x >= 0 && x < 16 && y >= 0 && y < 16) grid[x + ',' + y] = col }
@@ -183,7 +171,7 @@ function makeSprite(ops, S, thick = 1) {
     }
   }
   ops.forEach((op) => (op[0] === 'p' ? set(op[1], op[2], op[3]) : line(...op)))
-  // tmavý obrys
+
   const out = []
   for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) if (!grid[x + ',' + y]) {
     if (grid[(x + 1) + ',' + y] || grid[(x - 1) + ',' + y] || grid[x + ',' + (y + 1)] || grid[x + ',' + (y - 1)]) out.push([x, y])
@@ -203,7 +191,7 @@ function makeSprite(ops, S, thick = 1) {
 }
 
 function holdItem(arm, sprite, S, grip, tilt = 0) {
-  // sprite leží v rovine y-z (ploška pozerá do strany), špička ide dopredu a hore
+
   const pivot = new THREE.Group()
   sprite.position.set(-(grip[0] - 8) * S, -(8 - grip[1]) * S, 0)
   pivot.add(sprite)
@@ -231,7 +219,7 @@ function addSword(root, S) {
   holdItem(root.userData.armR, s, S, [3, 13])
   root.userData.armR.rotation.x = -0.75
   root.userData.armRBase = -0.75
-  // štít
+
   const shield = new THREE.Group()
   const wood = new THREE.MeshLambertMaterial({ map: tex(12, 22, '#8b5a2b', 90, (c, w, h) => {
     px(c, 0, 0, '#5a3a1a', w, 1); px(c, 0, h - 1, '#5a3a1a', w, 1); px(c, 0, 0, '#5a3a1a', 1, h); px(c, w - 1, 0, '#5a3a1a', 1, h)
@@ -257,7 +245,6 @@ function addBow(root, S) {
   root.userData.armLBase = -1.35
 }
 
-/* ---------- creeper (UV 64x32 ako v hre) ---------- */
 function buildCreeper(S) {
   const c = document.createElement('canvas'); c.width = 64; c.height = 32
   const ctx = c.getContext('2d')
@@ -287,7 +274,6 @@ function buildCreeper(S) {
   return root
 }
 
-
 function buildBlock(S) {
   const dirt = '#7b5232'
   const side = (c) => { px(c, 0, 0, '#4fae3c', 16, 3); for (let x = 0; x < 16; x += 2) px(c, x, 3, '#4fae3c', 1, 1 + (x % 3)) }
@@ -307,8 +293,6 @@ const humans = {
   alex: { slim: true, skin: '#d6a07e', hair: '#d9741a', fringe: true, eye: '#2f7d32', shirt: '#7aa83a', pants: '#6a4a2a', shoes: '#4a4a4a', add: addPickaxe },
 }
 
-
-/* ============ Minecraft bloky do pozadia ============ */
 const oreSpots = (seed, n = 7) => Array.from({ length: n }, (_, i) => [Math.floor(hash(i, seed, 3) * 13) + 1, Math.floor(hash(seed, i, 9) * 13) + 1])
 const stoneT = (seed) => tex(16, 16, '#808080', seed, (c) => {
   for (let i = 0; i < 18; i++) px(c, Math.floor(hash(i, seed, 1) * 16), Math.floor(hash(seed, i, 2) * 16), '#6a6a6a')
@@ -342,7 +326,6 @@ function blockMats(name, tier) {
   return (blockMatCache[key] = mats)
 }
 
-/* ============ rozmiestnenie (nezarovnané, plávajúce) ============ */
 const placements = [
   { type: 'steve', anchor: '.hero', x: 0.05, y: 470, size: 1.05, rot: 0.5, tilt: 0.06, para: 0.12 },
   { type: 'block', anchor: '.hero', x: 0.93, y: 120, size: 0.9, rot: 0.6, tilt: 0.4, para: 0.25, spin: 0.6, minW: 1100 },
@@ -377,8 +360,6 @@ export default function Scene3D() {
       return { p, obj, pivot, el: null, phase: i * 1.7 }
     })
 
-
-    // --- bloky v pozadí ---
     const unit = new THREE.BoxGeometry(1, 1, 1)
     const bgBlocks = Array.from({ length: 46 }, (_, i) => {
       const tier = i % 3
@@ -439,7 +420,7 @@ export default function Scene3D() {
         pivot.scale.setScalar(k)
         const float = reduce ? 0 : Math.sin(t * 1.6 + it.phase) * 9
         pivot.position.set(sx, H - sy + float, 0)
-        // natočenie za myšou + stály 3D uhol
+
         const lookX = (mx - sx / W) * 1.1, lookY = (my - sy / H) * 0.9
         if (p.type === 'block') {
           pivot.rotation.set(p.tilt + Math.sin(t + it.phase) * 0.15, t * (p.spin || 0.6) + it.phase, 0.1)

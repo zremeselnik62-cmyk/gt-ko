@@ -46,7 +46,6 @@ function PostCard({ p, feature, delay = 0 }) {
   )
 }
 
-/* ---------- sekcia na domovskej stránke ---------- */
 export function News() {
   const latest = posts.slice(0, 3)
   return (
@@ -64,7 +63,6 @@ export function News() {
   )
 }
 
-/* ---------- zoznam (#/novinky) ---------- */
 export function NewsList() {
   const [tag, setTag] = useState('Vše')
   const tags = ['Vše', ...Object.keys(tagMeta)]
@@ -90,7 +88,6 @@ export function NewsList() {
   )
 }
 
-/* ---------- článok (#/novinky/slug) ---------- */
 export function Post() {
   const slug = useSlug()
   const idx = posts.findIndex((p) => p.slug === slug)
@@ -107,7 +104,7 @@ export function Post() {
   const p = posts[idx], m = tagMeta[p.tag] || tagMeta['Oznámení']
   const prev = posts[idx + 1], next = posts[idx - 1]
   const share = async () => {
-    try { await navigator.clipboard.writeText(location.href) } catch { /* ignore */ }
+    try { await navigator.clipboard.writeText(location.href) } catch {  }
     setCopied(true); setTimeout(() => setCopied(false), 1800)
   }
   const more = posts.filter((x) => x.slug !== p.slug).slice(0, 2)

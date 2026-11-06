@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react'
 
-/* jednoduchý hash router (funguje v XAMPP bez .htaccess)
-   #/admin-team        AdminTeam
-   #/novinky           zoznam noviniek
-   #/novinky/<slug>    jeden článok
-   všetko ostatné      domovská stránka */
 const parse = (h) => {
   if (h.startsWith('#/admin-team')) return { name: 'admin' }
   if (h === '#/admin' || h.startsWith('#/admin/')) return { name: 'panel' }

@@ -1,4 +1,3 @@
-/* ======== NADPISY V ŠTÝLE LOGA ======== */
 .mc-h{font-size:clamp(2.2rem,5.4vw,4.2rem);font-weight:900;line-height:1.08;letter-spacing:-1px;display:block}
 .mc-h .mw{display:inline-block;white-space:nowrap;margin-right:.26em}
 .mc-h .ltr{animation-delay:calc(var(--i)*38ms)}
@@ -10,7 +9,6 @@
 .big-cta .mc-h{margin-bottom:6px}
 h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 
-/* manifest */
 .manifesto{padding-top:90px}
 .mf-lines{text-align:center;margin-bottom:60px}
 .mc-h.mf{font-size:clamp(2.6rem,8vw,6.4rem);line-height:1.02}
@@ -28,7 +26,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
   clip-path:polygon(0 50%,35% 50%,35% 75%,85% 15%,100% 15%,100% 30%,35% 100%,0 70%)}
 .tick.new li::before{background:var(--b)}
 
-/* roadmapa */
 .road{position:relative;display:grid;gap:18px;padding-left:34px}
 .road::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,var(--g),rgba(232,176,46,.15));border-radius:2px}
 .road-i{position:relative;display:block;padding:18px 22px;border:1px solid var(--line);border-radius:16px;background:rgba(26,18,10,.78)}
@@ -45,7 +42,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .mc-h.mf{margin:.12em 0}
 .mc-h.mf2{margin-bottom:.18em}
 
-/* banner karty minihry */
 .server{padding-top:0}
 .srv-banner{position:relative;height:120px;margin:0 -34px 0;overflow:hidden;border-bottom:1px solid var(--line);
   background:radial-gradient(260px 140px at 70% 100%,color-mix(in srgb,var(--c) 45%,transparent),transparent 70%),
@@ -57,7 +53,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .srv-banner::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,var(--c) 1px,transparent 1.5px);background-size:26px 26px;opacity:.18}
 .server .srv-top{margin-top:-34px;position:relative;z-index:2}
 
-/* ---- footer ---- */
 .foot-in{grid-template-columns:1.7fr 1fr 1.2fr 1fr;gap:44px}
 .foot-in h4{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:1rem;letter-spacing:.5px;color:var(--tx);text-transform:none;font-weight:800}
 .foot-in h4::after{content:"";height:2px;width:26px;background:var(--g);border-radius:2px}
@@ -84,7 +79,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .soc-btn .ico{display:block;vertical-align:baseline}
 .foot-in a.soc-btn:hover{transform:translateY(-4px) rotate(-5deg)}
 
-/* ---- tlačidlo nahor ---- */
 .to-top{width:58px;height:58px;right:24px;bottom:24px;border-radius:50%;padding:0;background:none;box-shadow:none;font-size:0;
   display:grid;place-items:center;transform:translateY(24px) scale(.6);transition:opacity .35s,transform .45s cubic-bezier(.2,1.6,.4,1)}
 .to-top.show{transform:none}
@@ -108,14 +102,12 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .to-top:hover .tt-label{opacity:1;transform:translate(0,-50%)}
 @media (max-width:640px){.tt-label{display:none}}
 
-/* ---- nadpisy stĺpcov pätičky ---- */
 .foot-in h4{display:block;position:relative;margin:0 0 18px;padding:0 0 12px 22px;font-size:.82rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#ffe9a8}
 .foot-in h4::after{content:"";position:absolute;left:0;right:0;bottom:0;width:auto;height:2px;border-radius:0;
   background:linear-gradient(90deg,var(--g),rgba(232,176,46,.25) 55%,transparent)}
 .foot-in h4::before{content:"";position:absolute;left:0;top:.18em;width:11px;height:11px;background:var(--g);
   box-shadow:0 0 10px rgba(232,176,46,.8);clip-path:polygon(0 3px,3px 3px,3px 0,calc(100% - 3px) 0,calc(100% - 3px) 3px,100% 3px,100% calc(100% - 3px),calc(100% - 3px) calc(100% - 3px),calc(100% - 3px) 100%,3px 100%,3px calc(100% - 3px),0 calc(100% - 3px))}
 
-/* ======== KARTA SERVERA ======== */
 .sc-wrap{perspective:1100px;animation:none!important}
 .sc{--tx:0deg;--ty:0deg;--gx:50%;--gy:0%;position:relative;padding:26px;border-radius:26px;overflow:hidden;
   background:linear-gradient(165deg,rgba(40,28,14,.92),rgba(16,11,6,.94));border:1px solid rgba(232,176,46,.4);
@@ -161,7 +153,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .sc-play::before{content:"";position:absolute;inset:-4px;border-radius:18px;border:2px solid rgba(255,214,110,.7);animation:playring 2.2s ease-out infinite;pointer-events:none}
 @keyframes playring{0%{opacity:.9;transform:scale(.98)}100%{opacity:0;transform:scale(1.07)}}
 
-/* ======== NAVBAR (plávajúci) ======== */
 .nav{padding:14px 0;background:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom:0!important}
 .nav-bar{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;height:68px;padding:0 12px 0 14px;border-radius:22px;
   background:linear-gradient(180deg,rgba(34,24,12,.72),rgba(17,12,7,.72));backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
@@ -211,7 +202,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .nav .links a:not(.btn){white-space:nowrap;padding:9px 13px}
 @media (max-width:1280px){.nav .links a:not(.btn){padding:9px 10px;font-size:.88rem}.nav .links a:not(.btn) .nl-ico{display:none}.nav-act .nav-ip{display:none}}
 
-/* ======== KROKY ======== */
 .st-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
 .st-item{height:100%}
 .st-item>.card{height:100%}
@@ -242,7 +232,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .st-ip.ok{border-color:#34d27a}.st-ip.ok span{background:linear-gradient(180deg,#5eea9c,#22b25c);color:#04210f}
 @media (max-width:980px){.st-grid{grid-template-columns:1fr}.st-path{display:none}}
 
-/* ======== MANIFEST – príbeh + stĺpce ======== */
 .mf-grid{grid-template-columns:1.15fr 1fr;gap:24px;align-items:stretch}
 .mf-storywrap,.mf-storywrap>.card{height:100%}
 .mf-story-card{display:flex;flex-direction:column;gap:16px;padding:40px 36px 30px;background:linear-gradient(160deg,rgba(40,28,14,.92),rgba(16,11,6,.94));border-color:rgba(232,176,46,.3)}
@@ -270,7 +259,6 @@ h3{text-shadow:0 2px 0 rgba(0,0,0,.45)}
 .mf-list li:hover span{background:var(--c);color:#1a1206}
 @media (max-width:980px){.mf-grid{grid-template-columns:1fr}.mf-cols{grid-template-rows:auto}}
 
-/* ---- stavový štítok v úvode ---- */
 .status-pill{--p:6px;position:relative;display:inline-flex;align-items:center;gap:12px;padding:11px 12px 11px 18px;font-size:.9rem;font-weight:700;color:#e9d9ae;
   background:linear-gradient(110deg,#6a4a10,#ffd54a,#6a4a10,#ffd54a);background-size:300% 100%;animation:spborder 4s linear infinite;
   clip-path:polygon(0 var(--p),var(--p) var(--p),var(--p) 0,calc(100% - var(--p)) 0,calc(100% - var(--p)) var(--p),100% var(--p),100% calc(100% - var(--p)),calc(100% - var(--p)) calc(100% - var(--p)),calc(100% - var(--p)) 100%,var(--p) 100%,var(--p) calc(100% - var(--p)),0 calc(100% - var(--p)));

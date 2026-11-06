@@ -4,9 +4,6 @@ import Icon from './Icon.jsx'
 import { SectionHead } from './components.jsx'
 import { servers, DISCORD } from './data.js'
 
-/* =====================================================================
-   3D dioramy minihier (Three.js, bloky s pixelovými textúrami)
-   ===================================================================== */
 const hash = (x, y, s) => { const n = Math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return n - Math.floor(n) }
 const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16))
 const px = (c, x, y, col, w = 1, h = 1) => { c.fillStyle = col; c.fillRect(x, y, w, h) }
@@ -72,7 +69,6 @@ function put(g, type, x, y, z, sx = 1, sy = 1, sz = 1) {
   g.add(m); return m
 }
 
-/* ---------- SkyBlock ---------- */
 function buildSky() {
   const g = new THREE.Group(), inner = new THREE.Group(); g.add(inner); inner.position.y = -0.5
   const rs = [4.4, 3.9, 3.2, 2.5, 1.7, 0.9]
@@ -103,7 +99,6 @@ function buildSky() {
   }
 }
 
-/* ---------- Parkour ---------- */
 function buildParkour() {
   const g = new THREE.Group()
   const types = ['quartz', 'lime', 'gold', 'brick', 'blue', 'quartz', 'orange', 'brick', 'red', 'quartz', 'lime', 'gold']
@@ -120,7 +115,7 @@ function buildParkour() {
   const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 11, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.38, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }))
   beam.position.set(last.x, last.y + 6.4, last.z); g.add(beam)
   ;[4, 8].forEach((i) => put(g, 'goldm', pts[i].x, pts[i].y + 0.33, pts[i].z, 0.7, 0.08, 0.7))
-  // bežec
+
   const run = new THREE.Group()
   const mk = (t, w, h, d, x, y, z) => { const m = new THREE.Mesh(UNIT, getMat(t)); m.scale.set(w, h, d); m.position.set(x, y, z); run.add(m); return m }
   mk('teal', 0.5, 0.7, 0.28, 0, 0.7, 0); mk('skin', 0.42, 0.42, 0.42, 0, 1.28, 0); mk('pants', 0.22, 0.6, 0.24, -0.12, 0.3, 0); mk('pants', 0.22, 0.6, 0.24, 0.12, 0.3, 0)
@@ -139,33 +134,32 @@ function buildParkour() {
   }
 }
 
-/* ---------- Prison ---------- */
 function buildPrison() {
   const g = new THREE.Group(), inner = new THREE.Group(); g.add(inner); inner.position.y = -1.2
   for (let x = -3; x <= 3; x++) for (let z = -3; z <= 3; z++) put(inner, 'brick', x, -1, z)
   for (let x = -3; x <= 3; x++) for (let y = 0; y <= 3; y++) put(inner, (x + y) % 2 ? 'cobble' : 'stone', x, y, -3)
   for (let z = -2; z <= 3; z++) for (let y = 0; y <= 3; y++) put(inner, (z + y) % 2 ? 'stone' : 'cobble', -3, y, z)
   for (let x = -3; x <= 3; x++) put(inner, 'cobble', x, 4, -3)
-  // mreže
+
   const bar = (x, y, z, w, h, d) => put(inner, 'metal', x, y, z, w, h, d)
   for (let i = -3; i <= 3.01; i += 0.6) { bar(i, 1.5, 3.2, 0.12, 5, 0.12); bar(3.2, 1.5, i * 0.95 + 0.1, 0.12, 5, 0.12) }
   bar(0, 4, 3.2, 6.8, 0.16, 0.16); bar(0, -0.6, 3.2, 6.8, 0.16, 0.16); bar(3.2, 4, 0, 0.16, 0.16, 6.8); bar(3.2, -0.6, 0, 0.16, 0.16, 6.8)
-  // rudy
+
   ;[[-1.5, 0, -2, 'coal'], [-0.5, 0, -2, 'iron'], [0.5, 0, -2, 'goldore'], [1.5, 0, -2, 'diamond'], [-1, 1, -2, 'diamond'], [0, 1, -2, 'coal'], [1, 1, -2, 'iron'], [-2, 0, -1, 'goldore'], [2, 0, -1, 'coal'], [0, 2, -2, 'goldore']].forEach(([x, y, z, t]) => put(inner, t, x, y, z))
-  // krumpáč
+
   const pick = new THREE.Group()
   const hd = new THREE.Mesh(UNIT, getMat('wood')); hd.scale.set(0.14, 2.4, 0.14); pick.add(hd)
   const hh = new THREE.Mesh(UNIT, getMat('metal')); hh.scale.set(1.4, 0.22, 0.22); hh.position.y = 1.15; pick.add(hh)
   ;[-0.7, 0.7].forEach((x) => { const e = new THREE.Mesh(UNIT, getMat('metal')); e.scale.set(0.22, 0.45, 0.22); e.position.set(x, 0.95, 0); pick.add(e) })
   pick.position.set(1.8, 1.7, 0.4); pick.rotation.z = -0.35; pick.rotation.y = 0.5
   inner.add(pick)
-  // fakľa
+
   const torch = new THREE.Group()
   const st = new THREE.Mesh(UNIT, getMat('wood')); st.scale.set(0.16, 0.8, 0.16); torch.add(st)
   const fl = new THREE.Mesh(UNIT, getMat('flame')); fl.scale.set(0.24, 0.28, 0.24); fl.position.y = 0.52; torch.add(fl)
   torch.position.set(-2.8, 2.4, -1.5); inner.add(torch)
   const tl = new THREE.PointLight(0xff9a30, 6, 9); tl.position.set(-2.4, 2.6, -1.5); inner.add(tl)
-  // zámok
+
   const lock = new THREE.Group()
   const lb = new THREE.Mesh(UNIT, getMat('goldm')); lb.scale.set(0.95, 0.8, 0.4); lock.add(lb)
   const sh = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.09, 8, 16, Math.PI), getMat('goldm')); sh.position.y = 0.4; lock.add(sh)
@@ -176,7 +170,6 @@ function buildPrison() {
   }
 }
 
-/* ---------- Klasik ---------- */
 function buildClassic() {
   const g = new THREE.Group(), inner = new THREE.Group(); g.add(inner); inner.position.y = -1.6
   const H = {}
@@ -202,7 +195,7 @@ function buildClassic() {
     put(inner, 'leaves', x, b + hgt + 2, z); put(inner, 'leaves', x + 1, b + hgt + 2, z); put(inner, 'leaves', x - 1, b + hgt + 2, z)
   }
   tree(-3, 1, 3); tree(3, -3, 4)
-  // domček
+
   for (let x = -1; x <= 1; x++) for (let z = -3; z <= -1; z++) for (const y of [2, 3]) {
     const edge = x === -1 || x === 1 || z === -3 || z === -1
     if (!edge) continue
@@ -215,7 +208,7 @@ function buildClassic() {
   for (let x = -1; x <= 1; x++) for (let z = -3; z <= -1; z++) put(inner, 'cobble', x, 4.75, z, 1, 0.5, 1)
   put(inner, 'cobble', 0, 5.25, -2, 1, 0.5, 1)
   put(inner, 'chest', 2, gh(2, -1) + 1, -1)
-  // prasa
+
   const pig = new THREE.Group()
   const pm = (t, w, h, d, x, y, z) => { const m = new THREE.Mesh(UNIT, getMat(t)); m.scale.set(w, h, d); m.position.set(x, y, z); pig.add(m) }
   pm('pink', 0.95, 0.55, 0.5, 0, 0.5, 0); pm('pink', 0.42, 0.42, 0.42, 0.62, 0.62, 0); pm('snout', 0.14, 0.2, 0.26, 0.86, 0.58, 0)
@@ -229,9 +222,6 @@ function buildClassic() {
 
 const builders = { skyblock: buildSky, parkour: buildParkour, prison: buildPrison, klasik: buildClassic }
 
-/* =====================================================================
-   komponent
-   ===================================================================== */
 export default function MiniGames() {
   const [idx, setIdx] = useState(0)
   const [hold, setHold] = useState(false)
@@ -262,7 +252,7 @@ export default function MiniGames() {
       const d = builders[s.id](); d.s = 0
       d.group.scale.setScalar(0); d.group.visible = false
       scene.add(d.group)
-      // jemné čiastočky v akcentovej farbe
+
       const n = 70, pos = new Float32Array(n * 3)
       for (let i = 0; i < n; i++) { const a = hash(i, 1, 2) * 6.28, r = 5 + hash(i, 3, 4) * 4; pos[i * 3] = Math.cos(a) * r; pos[i * 3 + 1] = (hash(i, 5, 6) - 0.5) * 12; pos[i * 3 + 2] = Math.sin(a) * r * 0.7 }
       const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos, 3))
@@ -284,7 +274,6 @@ export default function MiniGames() {
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting }, { threshold: 0.05 })
     io.observe(wrap)
 
-    // myš: náklon + ťahanie
     let tx = 0, ty = 0, yaw = 0, vel = 0, drag = false, lx = 0
     const move = (e) => {
       const r = canvas.getBoundingClientRect()

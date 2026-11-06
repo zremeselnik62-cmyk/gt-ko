@@ -1,4 +1,3 @@
-/* ======== NOVINKY / BLOG ======== */
 .nw-grid{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:24px;margin-bottom:36px}
 .nw-wrap{display:block;height:100%}
 .nw-wrap.feature{grid-row:1/3}
@@ -34,14 +33,12 @@
 .nw-card:hover .nw-more .arr{transform:translateX(5px)}
 .nw-all{margin-top:6px}
 
-/* stránky */
 .nw-page{padding:150px 0 110px;min-height:100vh}
 .nw-tabs{margin-bottom:34px}
 .nw-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .nw-list.two{grid-template-columns:repeat(2,1fr)}
 .nw-empty{grid-column:1/-1;text-align:center}
 
-/* článok */
 .po-head{margin:26px 0 26px}
 .po-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:18px;color:var(--mut);font-size:.88rem}
 .po-meta span{display:inline-flex;align-items:center;gap:7px}

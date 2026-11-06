@@ -1,9 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/* GameTeam API – spoločný základ (SQLite, sessions, pomocné funkcie)
-   Databáza leží MIMO webroot: C:\xampp\gameteam-data\gameteam.sqlite */
-
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
@@ -86,7 +83,6 @@ function skin_path(int $uid): string {
 
 const PNG_SIG = "\x89PNG\r\n\x1a\n";
 
-/* Overí PNG skin 64x64 a postaví ho znova len z bezpečných chunkov (bez metadát). Vráti PNG alebo vyhodí výnimku. */
 function sanitize_skin_png(string $raw): string {
     if (strlen($raw) < 100 || strlen($raw) > 200000) throw new RuntimeException('Skin musí mít do 200 kB.');
     if (substr($raw, 0, 8) !== PNG_SIG) throw new RuntimeException('Soubor není PNG.');
@@ -126,7 +122,6 @@ function sanitize_skin_png(string $raw): string {
     return $out;
 }
 
-/* ---------- session ---------- */
 function start_session(): void {
     if (session_status() === PHP_SESSION_ACTIVE) return;
     $base = rtrim(dirname(dirname((string)($_SERVER['SCRIPT_NAME'] ?? '/'))), '/\\');
@@ -142,7 +137,6 @@ function start_session(): void {
     if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(24));
 }
 
-/* ---------- odpovede ---------- */
 function out($data, int $code = 200): never {
     http_response_code($code);
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -163,7 +157,6 @@ function str(array $a, string $k, int $max = 255): string {
     return is_string($v) ? trim(mb_substr($v, 0, $max)) : '';
 }
 
-/* ---------- používateľ / práva ---------- */
 function current_user(): ?array {
     if (empty($_SESSION['uid'])) return null;
     $st = db()->prepare('SELECT id, username, role, mc_nick, created_at, last_login, skin_ver, skin_model FROM users WHERE id = ?');
@@ -194,7 +187,6 @@ function audit(string $user, string $action, string $detail = ''): void {
 
 function valid_nick(string $n): bool { return (bool)preg_match('/^[A-Za-z0-9_]{3,16}$/', $n); }
 
-/* spustí dotaz len s parametrami, ktoré sa v ňom naozaj vyskytujú */
 function qexec(PDO $pdo, string $sql, array $params = []): PDOStatement {
     foreach (array_keys($params) as $k) { if (strpos($sql, (string)$k) === false) unset($params[$k]); }
     $st = $pdo->prepare($sql);

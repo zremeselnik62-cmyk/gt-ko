@@ -15,7 +15,6 @@ const team = [
   { role: 'BUILDER', color: '#f59e0b', members: [{ n: 'Heantha' }, { n: 'TheFrederick' }] },
 ]
 
-/* skin hráča: mc-heads -> minotar -> náhradná ikona */
 const sources = (n) => [
   `skins/${encodeURIComponent(n)}.png`,
   `https://mc-heads.net/body/${encodeURIComponent(n)}/200`,

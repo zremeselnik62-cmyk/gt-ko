@@ -15,7 +15,7 @@ const MIN_MS = 2800
 
 export default function Loader() {
   const [pct, setPct] = useState(0)
-  const [phase, setPhase] = useState('load') // load -> done -> gone
+  const [phase, setPhase] = useState('load')
   useEffect(() => {
     document.documentElement.classList.remove('ready')
     document.body.style.overflow = 'hidden'
@@ -29,14 +29,14 @@ export default function Loader() {
       const el = performance.now() - t0
       const k = Math.min(1, el / MIN_MS)
       const eased = 1 - Math.pow(1 - k, 2.2)
-      // do 90 % podľa času, 100 % až keď je stránka načítaná
+
       const p = loaded ? eased * 100 : Math.min(90, eased * 90)
       setPct(p)
       if (loaded && k >= 1) { finished = true; setPct(100); setPhase('done') }
     }
     const loop = () => { step(); if (!finished) raf = requestAnimationFrame(loop) }
     raf = requestAnimationFrame(loop)
-    // poistka: keď je karta na pozadí, rAF stojí, tak to dotiahne časovač
+
     const iv = setInterval(step, 200)
     return () => { finished = true; cancelAnimationFrame(raf); clearInterval(iv); removeEventListener('load', onLoad) }
   }, [])

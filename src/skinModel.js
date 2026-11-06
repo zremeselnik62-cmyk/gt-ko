@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 
-/* Model hráča 1:1 ako v Minecrafte (64x64 skin vrátane druhej vrstvy) */
 const R = (u, v, w, h, d) => ({
   top: [u + d, v, w, d], bottom: [u + d + w, v, w, d],
   right: [u, v + d, d, h], front: [u + d, v + d, w, h],
